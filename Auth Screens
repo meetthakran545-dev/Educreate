@@ -1,0 +1,42 @@
+// app/(auth)/login.tsx
+import { View, Text } from "react-native";
+import { useState } from "react";
+import { Input } from "../../src/components/common/Input";
+import { Button } from "../../src/components/common/Button";
+import { login } from "../../src/services/firebase/auth";
+import { useUserStore } from "../../src/store/userStore";
+import { useRouter } from "expo-router";
+
+export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const setUser = useUserStore((state) => state.setUser);
+  const router = useRouter();
+
+  const handleLogin = async () => {
+    setLoading(true);
+    try {
+      const res = await login(email, password);
+      // Fetch role from Firestore
+      // const userDoc = await getDoc(doc(db, "users", res.user.uid));
+      const role = "student"; // Placeholder, fetch from Firestore
+      setUser({ uid: res.user.uid, email: res.user.email!, name: res.user.displayName || "Student", role });
+      router.replace("/"); // root layout redirects based on role
+    } catch (err) {
+      console.log(err);
+      alert("Login failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <View className="flex-1 justify-center p-4">
+      <Text className="text-2xl font-bold mb-4">Login</Text>
+      <Input placeholder="Email" value={email} onChangeText={setEmail} />
+      <Input placeholder="Password" value={password} onChangeText={setPassword} secureTextEntry />
+      <Button title={loading ? "Logging in..." : "Login"} onPress={handleLogin} />
+    </View>
+  );
+}
