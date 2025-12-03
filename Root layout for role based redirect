@@ -1,0 +1,25 @@
+// app/_layout.tsx
+import { Slot, useRouter } from "expo-router";
+import { useEffect } from "react";
+import { useUserStore } from "../src/store/userStore";
+
+export default function RootLayout() {
+  const router = useRouter();
+  const { role } = useUserStore();
+
+  useEffect(() => {
+    if (!role) {
+      router.replace("/(auth)/login");
+    } else if (role === "student") {
+      router.replace("/(student)/dashboard");
+    } else if (role === "teacher") {
+      router.replace("/(teacher)/dashboard");
+    } else if (role === "parent") {
+      router.replace("/(parent)/dashboard");
+    } else {
+      router.replace("/(admin)/dashboard");
+    }
+  }, [role]);
+
+  return <Slot />;
+}
