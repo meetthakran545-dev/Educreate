@@ -1,0 +1,31 @@
+// app/(student)/dashboard.tsx
+import { View, Text, ScrollView } from "react-native";
+import { useEffect, useState } from "react";
+import { db } from "../../src/services/firebase/auth";
+import { collection, getDocs, query, where } from "firebase/firestore";
+
+export default function StudentDashboard() {
+  const [assignments, setAssignments] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchAssignments = async () => {
+      const q = query(collection(db, "assignments"), where("class", "==", "9A"));
+      const snap = await getDocs(q);
+      setAssignments(snap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+    };
+    fetchAssignments();
+  }, []);
+
+  return (
+    <ScrollView className="flex-1 p-4">
+      <Text className="text-2xl font-bold mb-4">Student Dashboard</Text>
+      <Text className="text-xl font-semibold mb-2">Assignments</Text>
+      {assignments.map(a => (
+        <View key={a.id} className="p-4 mb-2 bg-white rounded shadow">
+          <Text className="font-bold">{a.title}</Text>
+          <Text>{a.description}</Text>
+        </View>
+      ))}
+    </ScrollView>
+  );
+}
