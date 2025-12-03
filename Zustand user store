@@ -1,0 +1,20 @@
+// src/store/userStore.ts
+import { create } from "zustand";
+
+interface UserStore {
+  uid: string | null;
+  role: "student" | "teacher" | "parent" | "admin" | null;
+  email: string | null;
+  name: string | null;
+  setUser: (data: { uid: string; role: any; email: string; name: string }) => void;
+  logout: () => void;
+}
+
+export const useUserStore = create<UserStore>((set) => ({
+  uid: null,
+  role: null,
+  email: null,
+  name: null,
+  setUser: (data) => set({ ...data }),
+  logout: () => set({ uid: null, role: null, email: null, name: null }),
+}));
