@@ -1,0 +1,101 @@
+SchoolOS/
+├── app/                    # Expo Router screens & layouts
+│   ├── (auth)/
+│   │   ├── _layout.tsx
+│   │   ├── login.tsx
+│   │   ├── signup.tsx
+│   │   └── forgot-password.tsx
+│   ├── (student)/
+│   │   ├── _layout.tsx
+│   │   ├── dashboard.tsx
+│   │   ├── assignments/
+│   │   │   ├── index.tsx
+│   │   │   └── submit.tsx
+│   │   ├── grades/
+│   │   │   ├── index.tsx
+│   │   │   └── report-card.tsx
+│   │   ├── timetable.tsx
+│   │   ├── attendance.tsx
+│   │   ├── doubts.tsx
+│   │   ├── chatbot.tsx
+│   │   ├── lectures.tsx
+│   │   └── profile.tsx
+│   ├── (teacher)/          # Similar structure: dashboard, assignments/create, grades/entry, etc.
+│   ├── (parent)/
+│   ├── (admin)/
+│   ├── +not-found.tsx
+│   └── _layout.tsx         # Root navigator with role redirect
+├── src/
+│   ├── components/         # Reusable UI (presentational) [web:12]
+│   │   ├── common/
+│   │   │   ├── Card.tsx
+│   │   │   ├── Button.tsx
+│   │   │   ├── Input.tsx
+│   │   │   └── LoadingSpinner.tsx
+│   │   ├── auth/
+│   │   │   └── RoleSelector.tsx
+│   │   ├── charts/
+│   │   │   ├── PerformanceLineChart.tsx
+│   │   │   └── GradeBarChart.tsx
+│   │   ├── forms/
+│   │   │   ├── AssignmentForm.tsx
+│   │   │   └── GradeEntryForm.tsx
+│   │   └── ui/
+│   │       ├── AnnouncementCard.tsx
+│   │       ├── LectureItem.tsx
+│   │       └── DoubtThread.tsx
+│   ├── screens/            # Container screens (business logic) [web:12]
+│   │   ├── SplashScreen.tsx
+│   │   ├── StudentDashboard.tsx
+│   │   ├── TeacherDashboard.tsx
+│   │   └── ParentDashboard.tsx
+│   ├── hooks/              # Custom React hooks [web:14]
+│   │   ├── useAuth.ts
+│   │   ├── useAssignments.ts
+│   │   ├── useFirestore.ts
+│   │   └── useRoleRedirect.ts
+│   ├── navigation/         # Tab/stack configs
+│   │   ├── StudentTabs.tsx
+│   │   ├── TeacherTabs.tsx
+│   │   └── index.tsx
+│   ├── services/           # API & Firebase logic [web:14]
+│   │   ├── firebase/
+│   │   │   ├── auth.ts
+│   │   │   ├── firestore.ts
+│   │   │   └── storage.ts
+│   │   ├── api/
+│   │   │   ├── assignments.ts
+│   │   │   ├── grades.ts
+│   │   │   └── attendance.ts
+│   │   └── ai-chatbot.ts   # Grok/OpenAI proxy
+│   ├── store/              # Zustand state management [web:14]
+│   │   ├── userStore.ts
+│   │   ├── assignmentStore.ts
+│   │   └── uiStore.ts
+│   ├── utils/              # Helpers
+│   │   ├── validators.ts   # Yup schemas
+│   │   ├── colors.ts       # Pastel themes
+│   │   ├── formatters.ts   # Dates, GPA calc
+│   │   └── constants.ts    # Roles, subjects
+│   └── types/              # TypeScript interfaces
+│       ├── user.ts
+│       ├── assignment.ts
+│       └── index.ts
+├── assets/
+│   ├── images/
+│   │   ├── icons/          # App icons by role
+│   │   ├── splash.png
+│   │   └── logos/
+│   ├── fonts/
+│   └── animations/         # Lottie JSON
+├── firebase.json           # Firebase config
+├── functions/              # Firebase Cloud Functions (AI proxy)
+│   └── src/
+│       └── index.ts
+├── .env                    # API keys [web:14]
+├── tailwind.config.js      # NativeWind setup
+├── metro.config.js
+├── app.json
+├── package.json
+├── tsconfig.json
+└── README.md
